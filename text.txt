@@ -1,0 +1,41 @@
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    registration_number VARCHAR(255) UNIQUE NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    role ENUM('student', 'admin') NOT NULL,
+    status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending'
+);
+
+
+CREATE TABLE student_details (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    full_name VARCHAR(255),
+    department VARCHAR(255),
+    passport_photo VARCHAR(255),
+    status ENUM('pending', 'approved', 'rejected') DEFAULT 'pending',
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+project-folder/
+├── config.php                  # Database connection file
+├── index.php                   # Landing page (optional or redirects to login.php)
+├── login.php                   # Login page for both students and admins
+├── signup.php                  # Signup page for students
+├── student_dashboard.php       # Main student dashboard
+├── admin_dashboard.php         # Main admin dashboard
+├── update_status.php           # Handles admin approval/rejection actions
+├── logout.php                  # Logout functionality for both students and admins
+├── generate_id_card.php        # Generates the student ID card (for printing)
+├── uploads/                    # Folder to store student-uploaded passport photos
+│   └── (Uploaded images)
+├── css/                        # Stylesheets folder
+│   └── style.css               # Custom styles
+├── js/                         # JavaScript folder (optional for interactivity)
+│   └── scripts.js              # Custom scripts (if needed)
+├── assets/                     # Folder for additional assets (e.g., logos)
+│   └── logo.png                # Logo for admin dashboard navbar
+├── sql/                        # Database schema and sample data
+│   └── database.sql            # SQL file to create and populate the database
+└── bootstrap/                  # Bootstrap files (if not using a CDN)
